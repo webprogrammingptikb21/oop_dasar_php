@@ -22,7 +22,7 @@ class Produk
 
 class cetakInfoProduk
 {
-    public function cetak($produk)
+    public function cetak(Produk $produk)
     {
         $str = "{$produk->judul} | {$produk->sayHello()} {(Rp. $produk->harga)}";
         return $str;
@@ -36,5 +36,10 @@ class cetakInfoProduk
 $produk1 = new Produk("naruto", "masashi kishimoto", "shonen jump", 30000);
 $produk2 = new Produk("uncharted", "neil druckman", "sony computer", 250000);
 
+echo "Komik : " . $produk1->sayHello();
+echo "<br>";
+echo "Game : " . $produk2->sayHello();
+echo "<br>";
+
 $infoProduk1 = new cetakInfoProduk();
-$infoProduk1->cetak($produk1);
+echo $infoProduk1->cetak($produk1);
