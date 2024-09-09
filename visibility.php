@@ -4,7 +4,9 @@ class Produk
 {
     public $judul,
         $penulis,
-        $penerbit,
+        $penerbit;
+    protected $diskon = 0;
+    private
         $harga;
 
     public function __construct($judul = "judul", $penulis = "penulis", $penerbit = "penerbit", $harga = 0)
@@ -13,6 +15,11 @@ class Produk
         $this->penulis = $penulis;
         $this->penerbit = $penerbit;
         $this->harga = $harga;
+    }
+
+    public function getHarga()
+    {
+        return $this->harga - ($this->harga * $this->diskon / 100);
     }
     public function sayHello()
     {
@@ -44,17 +51,25 @@ class Komik extends Produk
 class Game extends Produk
 {
     public $waktuMain;
+
     public function __construct($judul = "judul", $penulis = "penulis", $penerbit = "penerbit", $harga = 0, $waktuMain = 0)
     {
         parent::__construct($judul, $penulis, $penerbit, $harga);
         $this->waktuMain = $waktuMain;
     }
+
+    public function setDiskon($diskon)
+    {
+        $this->diskon = $diskon;
+    }
+
     public function getInfo()
     {
-        $str = "Game : {$this->judul} | {$this->sayHello()} (Rp. {$this->harga}) ~ {$this->waktuMain} Jam.";
+        $str = "Game: {$this->judul} | {$this->sayHello()} (Rp. {$this->getHarga()}) ~ {$this->waktuMain} Jam.";
         return $str;
     }
 }
+
 
 class cetakInfoProduk
 {
@@ -83,3 +98,7 @@ $produk2 = new Game("uncharted", "neil druckman", "sony computer", 250000, 50);
 echo $produk1->getInfoKomik();
 echo "<br>";
 echo $produk2->getInfo();
+echo "<br>";
+echo "<hr>";
+$produk2->setDiskon(50);
+echo $produk2->getHarga();
